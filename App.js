@@ -1,22 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { AppRegistry, StyleSheet, Text, View } from 'react-native';
-import Login from './components/Login.js';
-import Signup from './components/Signup.js';
-import Navigator from './navigation/SwitchNavigator.js';
-
+import React, {useEffect} from "react";
+import Firebase from "./config/firebase";
+import Navigator from "./navigation/DrawerNavigator.js";
 
 export default function App() {
-  return (
-    <Navigator />
-  );
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  // On app launch wipe previous session
+useEffect(() => {
+  Firebase.auth().signOut();
+}, []);
+
+  return <Navigator />;
+}
