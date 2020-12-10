@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import Firebase from "../config/firebase";
 import { useFocusEffect } from '@react-navigation/native';
+import { Icon } from 'react-native-elements';
 
 export default function Profile({ navigation }) {
   // Logout user
@@ -32,7 +33,7 @@ export default function Profile({ navigation }) {
   return (
     <View style={styles.container}>
       <Text>Profile Screen</Text>
-      <Button onPress={handleLogout} title="Sign out" />
+      <Button icon={<Icon name="arrow-left" size={15} color="black"/> } onPress={handleLogout} title="Sign out" />
       <Button onPress={handletest} title="Log user" />
     </View>
   );
