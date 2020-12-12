@@ -26,14 +26,14 @@ export default function Login({ navigation }) {
           value={email}
           onChangeText={(email) => setEmail(email)}
           placeholder="Email"
-          placeholderTextColor="#FFF"
+          placeholderTextColor="#FFA611"
         />
         <TextInput
           style={styles.inputBox}
           value={password}
           onChangeText={(password) => setPassword(password)}
           placeholder="Password"
-          placeholderTextColor="#FFF"
+          placeholderTextColor="#FFA611"
           secureTextEntry={true}
         />
         <Button
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     borderColor: "#d3d3d3",
     borderBottomWidth: 1,
     textAlign: "center",
-    color: "#ffffff",
+    color: "#FFA611",
   },
   button: {
     marginTop: 30,
