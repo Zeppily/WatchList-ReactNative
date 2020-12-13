@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
   ImageBackground,
+  Alert
 } from "react-native";
 import Firebase from "../config/firebase.js";
 import { useFocusEffect } from '@react-navigation/native';
@@ -20,7 +21,7 @@ export default function Signup({ navigation }) {
     Firebase.auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => navigation.navigate("Profile"))
-      .catch((error) => console.log(error));
+      .catch((error) => Alert.alert("An Error Occured", error.code));
   };
 
     // If user is logged in => Profile page

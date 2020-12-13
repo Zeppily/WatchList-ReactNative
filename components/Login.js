@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, StyleSheet, ImageBackground } from "react-native";
+import { View, TextInput, StyleSheet, ImageBackground, Alert } from "react-native";
 import Firebase from "../config/firebase";
 import { Button } from "react-native-elements";
 import { Entypo } from "@expo/vector-icons";
@@ -12,7 +12,7 @@ export default function Login({ navigation }) {
     Firebase.auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => navigation.navigate("Profile"))
-      .catch((error) => console.log(error));
+      .catch((error) => Alert.alert("An Error Occured", error.code));
   };
 
   return (
