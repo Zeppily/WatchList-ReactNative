@@ -9,14 +9,16 @@ import {
   FlatList,
   Image,
   StatusBar,
+  TextInput,
 } from "react-native";
 import { Button } from "react-native-elements";
 import { M_API_KEY } from "react-native-dotenv";
 import { Entypo } from "@expo/vector-icons";
 
-export default function Trending({ navigation }) {
+export default function Title({ navigation }) {
   const [movies, setMovies] = useState([]);
   const [userid, setUserid] = useState("");
+  const [title, setTitle] = useState("");
 
   // If no user logged in => Login page
   useFocusEffect(() => {
@@ -28,12 +30,15 @@ export default function Trending({ navigation }) {
     }
   }, []);
 
-  useEffect(() => {
-    fetch(`https://api.themoviedb.org/3/trending/all/day?api_key=${M_API_KEY}`)
+  const getMovie = () => {
+    let str = title.split(" ").join("+").toLowerCase();
+    fetch(
+      `https://api.themoviedb.org/3/search/movie?api_key=${M_API_KEY}&query=${str}`
+    )
       .then((response) => response.json())
       .then((responseData) => setMovies(responseData.results))
       .catch((err) => console.log(err));
-  }, []);
+  };
 
   const listSeparator = () => {
     return (
@@ -47,32 +52,41 @@ export default function Trending({ navigation }) {
 
   const addWatchlist = (item) => {
     if (item.hasOwnProperty("title")) {
-      Firebase.database()
-        .ref("watchlist/")
-        .push({
-          title: item.title,
-          description: item.overview,
-          img: item.poster_path,
-          user: userid,
-        });
+      Firebase.database().ref("watchlist/").push({
+        title: item.title,
+        description: item.overview,
+        img: item.poster_path,
+        user: userid,
+      });
     } else {
-      Firebase.database()
-        .ref("watchlist/")
-        .push({
-          title: item.name,
-          description: item.overview,
-          img: item.poster_path,
-          user: userid,
-        });
+      Firebase.database().ref("watchlist/").push({
+        title: item.name,
+        description: item.overview,
+        img: item.poster_path,
+        user: userid,
+      });
     }
   };
 
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../assets/ARposter.png")}
+        source={require("../assets/JPoster.png")}
         style={styles.image}
       >
+        <TextInput
+          style={styles.inputBox}
+          value={title}
+          onChangeText={(title) => setTitle(title)}
+          placeholder="Movie Title"
+          placeholderTextColor="#FFA611"
+        />
+        <Button
+          buttonStyle={styles.button}
+          icon={<Entypo name="magnifying-glass" size={18} color="white" />}
+          title="  Search"
+          onPress={getMovie}
+        />
         <FlatList
           keyExtractor={(item, index) => item.title}
           renderItem={({ item }) => (
@@ -128,6 +142,16 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginLeft: 5,
     marginRight: 5,
+  },
+  inputBox: {
+    width: "85%",
+    margin: 10,
+    padding: 15,
+    fontSize: 19,
+    borderColor: "#d3d3d3",
+    borderBottomWidth: 1,
+    textAlign: "center",
+    color: "#FFA611",
   },
   title: {
     margin: 10,
