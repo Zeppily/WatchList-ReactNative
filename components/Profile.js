@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from "react";
-import { View, Text, StyleSheet, Button, Alert } from "react-native";
+import { View, Text, StyleSheet, } from "react-native";
 import Firebase from "../config/firebase";
 import { useFocusEffect } from '@react-navigation/native';
-import { Icon } from 'react-native-elements';
 import { Image } from 'react-native-elements';
+import { Button } from "react-native-elements";
+import { Entypo } from "@expo/vector-icons";
 
 export default function Profile({ navigation }) {
   const [email, setEmail] = useState("");
@@ -30,20 +31,18 @@ export default function Profile({ navigation }) {
       }
   },[])
 
-  //test function
-  const handletest = () => {
-      console.log(Firebase.auth().currentUser);
-  }
-
   return (
     <View style={styles.container}>
       <Image
   source={{ uri: "https://i.pravatar.cc/200" }}
   style={{ width: 200, height: 200 }}
 />
-  <Text>Hello {email}</Text>
-      <Button icon={<Icon name="arrow-left" size={15} color="black"/> } onPress={handleLogout} title="Sign out" />
-      <Button onPress={handletest} title="Log user" />
+  <Text style={styles.Text}>Hello {email}</Text>
+  <Button buttonStyle={styles.button}
+        title="  Sign Out"
+        onPress={handleLogout}
+        icon={<Entypo name="back" size={18} color="white" />}
+      />
     </View>
   );
 }
@@ -51,8 +50,25 @@ export default function Profile({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#000",
     alignItems: "center",
     justifyContent: "center",
+  },
+  Text: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginTop: 30,
+    color: "#fff",
+  },
+  button: {
+    marginTop: 30,
+    marginBottom: 15,
+    paddingVertical: 5,
+    alignItems: "center",
+    backgroundColor: "#F6820D",
+    borderColor: "#F6820D",
+    borderWidth: 1,
+    borderRadius: 5,
+    width: 200,
   },
 });

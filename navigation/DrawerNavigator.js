@@ -7,6 +7,7 @@ import Profile from "../components/Profile.js";
 import Trending from "../components/Trending.js";
 import Watchlist from "../components/Watchlist.js";
 import Title from "../components/Title.js";
+import Genre from "../components/Genre.js";
 
 const Drawer = createDrawerNavigator();
 
@@ -16,7 +17,8 @@ export default function Navigator() {
       <Drawer.Navigator initialRouteName="Login">
         <Drawer.Screen name="Profile" component={Profile} />
         <Drawer.Screen name="Search by Title" component={Title} />
-        <Drawer.Screen name="Trending" component={Trending} />
+        <Drawer.Screen name="Search by Genre" component={Genre} />
+        <Drawer.Screen name="Trending Today" component={Trending} />
         <Drawer.Screen name="Watchlist" component={Watchlist} />
         <Drawer.Screen name="Login" component={Login} options={{
                 drawerLabel: () => null,
